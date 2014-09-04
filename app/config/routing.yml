@@ -1,0 +1,5 @@
+globalcom_doorman:
+    resource: "@GlobalcomDoormanBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
