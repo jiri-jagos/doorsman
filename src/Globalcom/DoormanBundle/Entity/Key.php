@@ -71,6 +71,11 @@ class Key
      */
     private $keyGroups;
 
+    public function __toString()
+    {
+        return $this->desc . ' - ' . $this->code;
+    }
+
     /**
      * Get id
      *

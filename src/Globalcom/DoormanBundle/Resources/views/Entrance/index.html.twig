@@ -1,4 +1,4 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends "::base.html.twig" %}
 
 {% block title %}{{ '%entity% list'|trans({'%entity%': 'Entrance'}, 'admin') }} - {{ parent() }}{% endblock %}
 {% macro thead(name, field, label) %}

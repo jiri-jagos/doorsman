@@ -19,6 +19,8 @@ class AppKernel extends Kernel
             new PUGX\GeneratorBundle\PUGXGeneratorBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+	    new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle(),
+	    new Sensio\Bundle\DistributionBundle\SensioDistributionBundle(),
 
             new Globalcom\DoormanBundle\GlobalcomDoormanBundle(),
         );
