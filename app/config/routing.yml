@@ -3,3 +3,8 @@ globalcom_doorman:
     type:     annotation
     prefix:   /
 
+login_check:
+  path: /admin/login_check/
+
+logout:
+  path: /logout/

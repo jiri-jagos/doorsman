@@ -46,7 +46,7 @@ class HouseController extends Controller
     /**
      * Finds and displays a House entity.
      *
-     * @Route("/{id}/show", name="admin_House_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_House_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -63,7 +63,7 @@ class HouseController extends Controller
     /**
      * Displays a form to create a new House entity.
      *
-     * @Route("/new", name="admin_House_new")
+     * @Route("/novy", name="admin_House_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class HouseController extends Controller
     /**
      * Creates a new House entity.
      *
-     * @Route("/create", name="admin_House_create")
+     * @Route("/vytvorit", name="admin_House_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:House:new.html.twig")
      */
@@ -106,7 +106,7 @@ class HouseController extends Controller
     /**
      * Displays a form to edit an existing House entity.
      *
-     * @Route("/{id}/edit", name="admin_House_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_House_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -128,7 +128,7 @@ class HouseController extends Controller
     /**
      * Edits an existing House entity.
      *
-     * @Route("/{id}/update", name="admin_House_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_House_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:House:edit.html.twig")
      */
@@ -156,7 +156,7 @@ class HouseController extends Controller
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="admin_House_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_House_sort")
      */
     public function sortAction($field, $type)
     {

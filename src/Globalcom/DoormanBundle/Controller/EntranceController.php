@@ -16,7 +16,7 @@ use Doctrine\ORM\QueryBuilder;
 /**
  * Entrance controller.
  *
- * @Route("/admin/Entrance")
+ * @Route("/admin/vchody")
  */
 class EntranceController extends Controller
 {
@@ -46,7 +46,7 @@ class EntranceController extends Controller
     /**
      * Finds and displays a Entrance entity.
      *
-     * @Route("/{id}/show", name="admin_Entrance_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_Entrance_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -63,7 +63,7 @@ class EntranceController extends Controller
     /**
      * Displays a form to create a new Entrance entity.
      *
-     * @Route("/new", name="admin_Entrance_new")
+     * @Route("/novy", name="admin_Entrance_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class EntranceController extends Controller
     /**
      * Creates a new Entrance entity.
      *
-     * @Route("/create", name="admin_Entrance_create")
+     * @Route("/vytvorit", name="admin_Entrance_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:Entrance:new.html.twig")
      */
@@ -106,7 +106,7 @@ class EntranceController extends Controller
     /**
      * Displays a form to edit an existing Entrance entity.
      *
-     * @Route("/{id}/edit", name="admin_Entrance_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_Entrance_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -128,7 +128,7 @@ class EntranceController extends Controller
     /**
      * Edits an existing Entrance entity.
      *
-     * @Route("/{id}/update", name="admin_Entrance_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_Entrance_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:Entrance:edit.html.twig")
      */
@@ -156,7 +156,7 @@ class EntranceController extends Controller
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="admin_Entrance_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_Entrance_sort")
      */
     public function sortAction($field, $type)
     {

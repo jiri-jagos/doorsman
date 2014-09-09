@@ -46,7 +46,7 @@ class KeyGroupController extends Controller
     /**
      * Finds and displays a KeyGroup entity.
      *
-     * @Route("/{id}/show", name="admin_KeyGroup_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_KeyGroup_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -63,7 +63,7 @@ class KeyGroupController extends Controller
     /**
      * Displays a form to create a new KeyGroup entity.
      *
-     * @Route("/new", name="admin_KeyGroup_new")
+     * @Route("/novy", name="admin_KeyGroup_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class KeyGroupController extends Controller
     /**
      * Creates a new KeyGroup entity.
      *
-     * @Route("/create", name="admin_KeyGroup_create")
+     * @Route("/vytvorit", name="admin_KeyGroup_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:KeyGroup:new.html.twig")
      */
@@ -106,7 +106,7 @@ class KeyGroupController extends Controller
     /**
      * Displays a form to edit an existing KeyGroup entity.
      *
-     * @Route("/{id}/edit", name="admin_KeyGroup_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_KeyGroup_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -128,7 +128,7 @@ class KeyGroupController extends Controller
     /**
      * Edits an existing KeyGroup entity.
      *
-     * @Route("/{id}/update", name="admin_KeyGroup_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_KeyGroup_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:KeyGroup:edit.html.twig")
      */
@@ -156,7 +156,7 @@ class KeyGroupController extends Controller
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="admin_KeyGroup_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_KeyGroup_sort")
      */
     public function sortAction($field, $type)
     {

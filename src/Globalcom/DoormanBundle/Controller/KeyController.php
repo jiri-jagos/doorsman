@@ -46,7 +46,7 @@ class KeyController extends Controller
     /**
      * Finds and displays a Key entity.
      *
-     * @Route("/{id}/show", name="admin_key_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_key_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -63,7 +63,7 @@ class KeyController extends Controller
     /**
      * Displays a form to create a new Key entity.
      *
-     * @Route("/new", name="admin_key_new")
+     * @Route("/novy", name="admin_key_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class KeyController extends Controller
     /**
      * Creates a new Key entity.
      *
-     * @Route("/create", name="admin_key_create")
+     * @Route("/vytvorit", name="admin_key_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:Key:new.html.twig")
      */
@@ -106,7 +106,7 @@ class KeyController extends Controller
     /**
      * Displays a form to edit an existing Key entity.
      *
-     * @Route("/{id}/edit", name="admin_key_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_key_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
@@ -128,7 +128,7 @@ class KeyController extends Controller
     /**
      * Edits an existing Key entity.
      *
-     * @Route("/{id}/update", name="admin_key_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_key_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:Key:edit.html.twig")
      */
@@ -156,7 +156,7 @@ class KeyController extends Controller
     /**
      * Save order.
      *
-     * @Route("/order/{field}/{type}", name="admin_key_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_key_sort")
      */
     public function sortAction($field, $type)
     {
