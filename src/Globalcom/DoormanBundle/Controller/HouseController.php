@@ -31,7 +31,7 @@ class HouseController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new HouseFilterType());
-        if (!is_null($response = $this->saveFilter($form, 'house', 'admin_House'))) {
+        if (!is_null($response = $this->saveFilter($form, 'house', 'admin_house'))) {
             return $response;
         }
         $qb = $em->getRepository('GlobalcomDoormanBundle:House')->createQueryBuilder('h');
@@ -46,13 +46,13 @@ class HouseController extends Controller
     /**
      * Finds and displays a House entity.
      *
-     * @Route("/{id}/zobrazit", name="admin_House_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_house_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(House $house)
     {
-        $deleteForm = $this->createDeleteForm($house->getId(), 'admin_House_delete');
+        $deleteForm = $this->createDeleteForm($house->getId(), 'admin_house_delete');
 
         return array(
             'house' => $house,
@@ -63,7 +63,7 @@ class HouseController extends Controller
     /**
      * Displays a form to create a new House entity.
      *
-     * @Route("/novy", name="admin_House_new")
+     * @Route("/novy", name="admin_house_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class HouseController extends Controller
     /**
      * Creates a new House entity.
      *
-     * @Route("/vytvorit", name="admin_House_create")
+     * @Route("/vytvorit", name="admin_house_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:House:new.html.twig")
      */
@@ -94,7 +94,7 @@ class HouseController extends Controller
             $em->persist($house);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_House_show', array('id' => $house->getId())));
+            return $this->redirect($this->generateUrl('admin_house_show', array('id' => $house->getId())));
         }
 
         return array(
@@ -106,17 +106,17 @@ class HouseController extends Controller
     /**
      * Displays a form to edit an existing House entity.
      *
-     * @Route("/{id}/editovat", name="admin_House_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_house_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(House $house)
     {
         $editForm = $this->createForm(new HouseType(), $house, array(
-            'action' => $this->generateUrl('admin_House_update', array('id' => $house->getid())),
+            'action' => $this->generateUrl('admin_house_update', array('id' => $house->getid())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($house->getId(), 'admin_House_delete');
+        $deleteForm = $this->createDeleteForm($house->getId(), 'admin_house_delete');
 
         return array(
             'house' => $house,
@@ -128,22 +128,22 @@ class HouseController extends Controller
     /**
      * Edits an existing House entity.
      *
-     * @Route("/{id}/aktualizovat", name="admin_House_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_house_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:House:edit.html.twig")
      */
     public function updateAction(House $house, Request $request)
     {
         $editForm = $this->createForm(new HouseType(), $house, array(
-            'action' => $this->generateUrl('admin_House_update', array('id' => $house->getid())),
+            'action' => $this->generateUrl('admin_house_update', array('id' => $house->getid())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_House_edit', array('id' => $house->getId())));
+            return $this->redirect($this->generateUrl('admin_house_edit', array('id' => $house->getId())));
         }
-        $deleteForm = $this->createDeleteForm($house->getId(), 'admin_House_delete');
+        $deleteForm = $this->createDeleteForm($house->getId(), 'admin_house_delete');
 
         return array(
             'house' => $house,
@@ -156,13 +156,13 @@ class HouseController extends Controller
     /**
      * Save order.
      *
-     * @Route("/seradit/{field}/{type}", name="admin_House_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_house_sort")
      */
     public function sortAction($field, $type)
     {
         $this->setOrder('house', $field, $type);
 
-        return $this->redirect($this->generateUrl('admin_House'));
+        return $this->redirect($this->generateUrl('admin_house'));
     }
 
     /**
@@ -257,19 +257,19 @@ class HouseController extends Controller
     /**
      * Deletes a House entity.
      *
-     * @Route("/{id}/delete", name="admin_House_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="admin_house_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(House $house, Request $request)
     {
-        $form = $this->createDeleteForm($house->getId(), 'admin_House_delete');
+        $form = $this->createDeleteForm($house->getId(), 'admin_house_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($house);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_House'));
+        return $this->redirect($this->generateUrl('admin_house'));
     }
 
     /**

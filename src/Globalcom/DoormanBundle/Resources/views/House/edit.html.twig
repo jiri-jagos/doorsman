@@ -1,4 +1,4 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
 {% block title %}{{ '%entity% edit'|trans({'%entity%': 'House'}, 'admin') }} - {{ parent() }}{% endblock %}
 
@@ -17,7 +17,7 @@
 
         <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_House') }}">
+            <a class="btn btn-info" href="{{ path('admin_house') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
 

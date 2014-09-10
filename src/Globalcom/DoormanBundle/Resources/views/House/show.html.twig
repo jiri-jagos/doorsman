@@ -1,4 +1,4 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
 {% block title %}House - {{ parent() }}{% endblock %}
 
@@ -27,11 +27,11 @@
 
         <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_House') }}">
+            <a class="btn btn-info" href="{{ path('admin_house') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('admin_House_edit', {id: house.id}) }}">
+            <a class="btn btn-primary" href="{{ path('admin_house_edit', {id: house.id}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>

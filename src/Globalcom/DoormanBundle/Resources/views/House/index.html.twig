@@ -1,4 +1,4 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
 {% block title %}{{ '%entity% list'|trans({'%entity%': 'House'}, 'admin') }} - {{ parent() }}{% endblock %}
 {% macro thead(name, field, label) %}
@@ -6,12 +6,12 @@
         {% set sort = app.session.get('sort.' ~ name) %}
         {% if sort and sort.field == field %}
             {% if sort.type == 'DESC' %}
-                <a href="{{ path('admin_House_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
+                <a href="{{ path('admin_house_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
             {% elseif sort.type == 'ASC' %}
-                <a href="{{ path('admin_House_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
+                <a href="{{ path('admin_house_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
             {% endif %}
         {% else %}
-            <a href="{{ path('admin_House_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
+            <a href="{{ path('admin_house_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
         {% endif %}
     {% endspaceless %}
 {% endmacro %}
@@ -37,15 +37,15 @@
         <tbody>
             {% for house in paginator %}
                 <tr>
-                    <td><a href="{{ path('admin_House_show', {id: house.id}) }}">{{ house.id }}</a></td>
+                    <td><a href="{{ path('admin_house_show', {id: house.id}) }}">{{ house.id }}</a></td>
                     <td>{{ house.desc }}</td>
                     <td>{{ house.town }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_House_show', {id: house.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_house_show', {id: house.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_House_edit', {id: house.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_house_edit', {id: house.id}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -59,7 +59,7 @@
     
     <ul class="new_entry list-unstyled">
         <li>
-            <a class="btn btn-info" href="{{ path('admin_House_new') }}">
+            <a class="btn btn-info" href="{{ path('admin_house_new') }}">
                 <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
         </li>
