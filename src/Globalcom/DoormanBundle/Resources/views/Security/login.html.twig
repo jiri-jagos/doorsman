@@ -1,21 +1,44 @@
-{% if error %}
-    <div>{{ error.message }}</div>
-{% endif %}
+{% extends '::base.html.twig' %}
 
-<form action="{{ path('login_check') }}" method="post">
-    <label for="username">{{'Username'|trans}}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+{% block body %}
 
-    <label for="password">{{'Password'|trans}}</label>
-    <input type="password" id="password" name="_password" />
+    <div class="container">
+        {% if error %}
+            <div class="error">{{ error.message }}</div>
+        {% endif %}
 
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
+        <form action="{{ path('login_check') }}" method="post" class="form-signin" role="form">
+            <h2 class="form-signin-heading">{{ 'Please login' | trans }}</h2>
+            <input
+                type="text"
+                id="username"
+                name="_username"
+                value="{{ last_username }}"
+                class="form-control"
+                placeholder="{{ 'Username'|trans }}"
+                required autofocus
+            >
 
-    {#
-        If you want to control the URL the user
-        is redirected to on success (more details below)
-        <input type="hidden" name="_target_path" value="/account" />
-    #}
+            <input
+                type="password"
+                id="password"
+                name="_password"
+                class="form-control"
+                placeholder="{{ 'Password'|trans }}"
+                required
+            >
 
-    <button type="submit">login</button>
-</form>
+            <label class="checkbox">
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            {#
+                If you want to control the URL the user
+                is redirected to on success (more details below)
+                <input type="hidden" name="_target_path" value="/account" />
+            #}
+        </form>
+    </div>
+{% endblock %}

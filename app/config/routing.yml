@@ -4,7 +4,7 @@ globalcom_doorman:
     prefix:   /
 
 login_check:
-  path: /admin/login_check/
+  path: /login_check/
 
 logout:
   path: /logout/

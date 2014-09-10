@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>{% block title 'Administrace' %}</title>
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block stylesheets %}
+        {% stylesheets 'bundles/globalcomdoorman/css/*' %}
+            <link href="{{ asset_url }}" rel="stylesheet">
+        {% endstylesheets %}
+    {% endblock %}
+</head>
+<body>
+{% if app.user %}
+    {% block nav %}
+        <nav class="navbar navbar-fixed-top">
+        </nav>
+    {% endblock %}
+{% endif %}
+<div class="container">
+    {% block body '' %}
+</div>
+{% block javascripts %}
+    {% stylesheets 'bundles/globalcomdoorman/js/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endstylesheets %}
+{% endblock %}
+</body>
 </html>

@@ -16,14 +16,14 @@ use Doctrine\ORM\QueryBuilder;
 /**
  * House controller.
  *
- * @Route("/admin/House")
+ * @Route("/admin/house")
  */
 class HouseController extends Controller
 {
     /**
      * Lists all House entities.
      *
-     * @Route("/", name="admin_House")
+     * @Route("/", name="admin_house")
      * @Method("GET")
      * @Template()
      */
