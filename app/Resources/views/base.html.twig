@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>{% block title 'Administrace' %}</title>
+    <title>{% block title 'mainTitle'|trans({}, 'admin') %}</title>
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block stylesheets %}
@@ -14,7 +14,7 @@
 <body>
 {% if app.user %}
     {% block nav %}
-        <nav class="navbar navbar-fixed-top">
+        <nav class="navbar navbar-fixed-top">Tady bude navigace
         </nav>
     {% endblock %}
 {% endif %}

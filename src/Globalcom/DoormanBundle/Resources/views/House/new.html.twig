@@ -1,9 +1,9 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{{ '%entity% creation'|trans({'%entity%': 'House'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'createHouse'|trans({}, 'admin') }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>{{ '%entity% creation'|trans({'%entity%': 'House'}, 'admin') }}</h1>
+    <h1>{{ 'createHouse'|trans({}, 'admin') }}</h1>
 
     {{ form_start(form, {action: path('admin_house_create')}) }}
         {{ form_widget(form) }}

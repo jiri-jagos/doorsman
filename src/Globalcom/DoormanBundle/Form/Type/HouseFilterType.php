@@ -14,9 +14,8 @@ class HouseFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
-            ->add('desc', 'filter_text')
-            ->add('town', 'filter_text')
+            ->add('desc', 'filter_text', array('label' => 'desc'))
+            ->add('town', 'filter_text', array('label' => 'town'))
         ;
     }
 
@@ -30,6 +29,7 @@ class HouseFilterType extends AbstractType
             'csrf_protection'   => false,
             'validation_groups' => array('filter'),
             'method'            => 'GET',
+            'translation_domain' => 'admin',
         ));
     }
 

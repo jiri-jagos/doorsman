@@ -14,9 +14,8 @@ class HouseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
-            ->add('desc')
-            ->add('town')
+            ->add('desc', 'text', array('label' => 'desc'))
+            ->add('town', 'text', array('label' => 'town'))
         ;
     }
 
@@ -27,6 +26,7 @@ class HouseType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Globalcom\DoormanBundle\Entity\House',
+            'translation_domain' => 'admin',
         ));
     }
 

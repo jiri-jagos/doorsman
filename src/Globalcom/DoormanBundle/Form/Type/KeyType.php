@@ -14,7 +14,6 @@ class KeyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
             ->add('code')
             ->add('desc')
             ->add('color')
@@ -32,6 +31,7 @@ class KeyType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Globalcom\DoormanBundle\Entity\Key',
+            'translation_domain' => 'admin',
         ));
     }
 

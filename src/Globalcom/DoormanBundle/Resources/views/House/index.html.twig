@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}{{ '%entity% list'|trans({'%entity%': 'House'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'houses'|trans({}, 'admin') }} - {{ parent() }}{% endblock %}
 {% macro thead(name, field, label) %}
     {% spaceless %}
         {% set sort = app.session.get('sort.' ~ name) %}
@@ -21,17 +21,17 @@
 
 
 {% block body %}
-    <h1>{{ '%entity% list'|trans({'%entity%': 'House'}, 'admin') }}</h1>
+    <h1>{{ 'houses'|trans({}, 'admin') }}</h1>
 
     {% include 'GlobalcomDoormanBundle:House:filter.html.twig' with {form: form} %}
     
     <table class="table table-striped table-hover table-bordered records_list">
         <thead>
             <tr>
-                <th scope="col">{{ thead('house', 'id', 'Id') }}</th>
-                <th scope="col">{{ thead('house', 'desc', 'Desc') }}</th>
-                <th scope="col">{{ thead('house', 'town', 'Town') }}</th>
-                <th scope="col">{{ 'Actions'|trans({}, 'admin') }}</th>
+                <th scope="col">{{ thead('house', 'id', 'id'|trans({}, 'admin')) }}</th>
+                <th scope="col">{{ thead('house', 'desc', 'desc'|trans({}, 'admin')) }}</th>
+                <th scope="col">{{ thead('house', 'town', 'town'|trans({}, 'admin')) }}</th>
+                <th scope="col">{{ 'actions'|trans({}, 'admin') }}</th>
             </tr>
         </thead>
         <tbody>
