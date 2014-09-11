@@ -22,9 +22,10 @@
     {% block body '' %}
 </div>
 {% block javascripts %}
-    {% stylesheets 'bundles/globalcomdoorman/js/*' %}
+    <script src="{{ asset('/js/jquery-2.1.1.js') }}"></script>
+    {% javascripts 'bundles/globalcomdoorman/js/*' %}
         <script src="{{ asset_url }}"></script>
-    {% endstylesheets %}
+    {% endjavascripts %}
 {% endblock %}
 </body>
 </html>
