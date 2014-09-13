@@ -23,7 +23,7 @@ class EntranceController extends Controller
     /**
      * Lists all Entrance entities.
      *
-     * @Route("/", name="admin_Entrance")
+     * @Route("/", name="admin_entrance")
      * @Method("GET")
      * @Template()
      */
@@ -31,7 +31,7 @@ class EntranceController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new EntranceFilterType());
-        if (!is_null($response = $this->saveFilter($form, 'entrance', 'admin_Entrance'))) {
+        if (!is_null($response = $this->saveFilter($form, 'entrance', 'admin_entrance'))) {
             return $response;
         }
         $qb = $em->getRepository('GlobalcomDoormanBundle:Entrance')->createQueryBuilder('e');
@@ -46,13 +46,13 @@ class EntranceController extends Controller
     /**
      * Finds and displays a Entrance entity.
      *
-     * @Route("/{id}/zobrazit", name="admin_Entrance_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_entrance_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(Entrance $entrance)
     {
-        $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_Entrance_delete');
+        $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_entrance_delete');
 
         return array(
             'entrance' => $entrance,
@@ -63,7 +63,7 @@ class EntranceController extends Controller
     /**
      * Displays a form to create a new Entrance entity.
      *
-     * @Route("/novy", name="admin_Entrance_new")
+     * @Route("/novy", name="admin_entrance_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class EntranceController extends Controller
     /**
      * Creates a new Entrance entity.
      *
-     * @Route("/vytvorit", name="admin_Entrance_create")
+     * @Route("/vytvorit", name="admin_entrance_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:Entrance:new.html.twig")
      */
@@ -94,7 +94,7 @@ class EntranceController extends Controller
             $em->persist($entrance);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_Entrance_show', array('id' => $entrance->getId())));
+            return $this->redirect($this->generateUrl('admin_entrance_show', array('id' => $entrance->getId())));
         }
 
         return array(
@@ -106,17 +106,17 @@ class EntranceController extends Controller
     /**
      * Displays a form to edit an existing Entrance entity.
      *
-     * @Route("/{id}/editovat", name="admin_Entrance_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_entrance_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(Entrance $entrance)
     {
         $editForm = $this->createForm(new EntranceType(), $entrance, array(
-            'action' => $this->generateUrl('admin_Entrance_update', array('id' => $entrance->getid())),
+            'action' => $this->generateUrl('admin_entrance_update', array('id' => $entrance->getid())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_Entrance_delete');
+        $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_entrance_delete');
 
         return array(
             'entrance' => $entrance,
@@ -128,22 +128,22 @@ class EntranceController extends Controller
     /**
      * Edits an existing Entrance entity.
      *
-     * @Route("/{id}/aktualizovat", name="admin_Entrance_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_entrance_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:Entrance:edit.html.twig")
      */
     public function updateAction(Entrance $entrance, Request $request)
     {
         $editForm = $this->createForm(new EntranceType(), $entrance, array(
-            'action' => $this->generateUrl('admin_Entrance_update', array('id' => $entrance->getid())),
+            'action' => $this->generateUrl('admin_entrance_update', array('id' => $entrance->getid())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_Entrance_edit', array('id' => $entrance->getId())));
+            return $this->redirect($this->generateUrl('admin_entrance_edit', array('id' => $entrance->getId())));
         }
-        $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_Entrance_delete');
+        $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_entrance_delete');
 
         return array(
             'entrance' => $entrance,
@@ -156,13 +156,13 @@ class EntranceController extends Controller
     /**
      * Save order.
      *
-     * @Route("/seradit/{field}/{type}", name="admin_Entrance_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_entrance_sort")
      */
     public function sortAction($field, $type)
     {
         $this->setOrder('entrance', $field, $type);
 
-        return $this->redirect($this->generateUrl('admin_Entrance'));
+        return $this->redirect($this->generateUrl('admin_entrance'));
     }
 
     /**
@@ -257,19 +257,19 @@ class EntranceController extends Controller
     /**
      * Deletes a Entrance entity.
      *
-     * @Route("/{id}/delete", name="admin_Entrance_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="admin_entrance_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(Entrance $entrance, Request $request)
     {
-        $form = $this->createDeleteForm($entrance->getId(), 'admin_Entrance_delete');
+        $form = $this->createDeleteForm($entrance->getId(), 'admin_entrance_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($entrance);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_Entrance'));
+        return $this->redirect($this->generateUrl('admin_entrance'));
     }
 
     /**

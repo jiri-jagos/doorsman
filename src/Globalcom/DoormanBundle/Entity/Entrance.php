@@ -41,7 +41,7 @@ class Entrance
     /**
      * @var string
      *
-     * @ORM\Column(name="desc", type="string", length=50)
+     * @ORM\Column(name="`desc`", type="string", length=50)
      */
     private $desc;
 
@@ -187,5 +187,10 @@ class Entrance
         $this->keyGroups = $keyGroups;
 
         return $this;
+    }
+
+    public function getFullName()
+    {
+        return $this->desc . ' - ' . $this->code;
     }
 }

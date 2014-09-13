@@ -1,6 +1,6 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}{{ '%entity% list'|trans({'%entity%': 'Key'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'keyGroups'|trans({}, 'admin') }} - {{ parent() }}{% endblock %}
 {% macro thead(name, field, label) %}
     {% spaceless %}
         {% set sort = app.session.get('sort.' ~ name) %}

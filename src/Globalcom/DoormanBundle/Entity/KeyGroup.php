@@ -26,7 +26,7 @@ class KeyGroup
     /**
      * @var string
      *
-     * @ORM\Column(name="desc", type="string", length=50)
+     * @ORM\Column(name="`desc`", type="string", length=50)
      */
     private $desc;
 

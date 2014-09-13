@@ -1,9 +1,9 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}{{ '%entity% edit'|trans({'%entity%': 'KeyGroup'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ '%entity% edit'|trans({'%entity%': 'skupiny klíčů'}, 'admin') }} - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>{{ '%entity% edit'|trans({'%entity%': 'KeyGroup'}, 'admin') }}</h1>
+    <h1>{{ '%entity% edit'|trans({'%entity%': 'skupiny klíčů'}, 'admin') }}</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
@@ -17,7 +17,7 @@
 
         <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_KeyGroup') }}">
+            <a class="btn btn-info" href="{{ path('admin_keyGroup') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
 

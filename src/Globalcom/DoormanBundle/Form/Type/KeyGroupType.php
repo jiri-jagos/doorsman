@@ -14,11 +14,25 @@ class KeyGroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
-            ->add('desc')
-            ->add('keys')
-            ->add('entrances')
-        ;
+            ->add('desc', 'text', array('label' => 'desc'))
+            ->add(
+                'keys', 'entity', array(
+                    'class' => 'Globalcom\DoormanBundle\Entity\Key',
+                    'property' => 'fullName',
+                    'label' => 'keys',
+                    'multiple' => true,
+                    'expanded' => false
+                )
+            )
+            ->add(
+                'entrances', 'entity', array(
+                    'class' => 'Globalcom\DoormanBundle\Entity\Entrance',
+                    'property' => 'fullName',
+                    'label' => 'entrances',
+                    'multiple' => true,
+                    'expanded' => true
+                )
+            );
     }
 
     /**
@@ -26,9 +40,12 @@ class KeyGroupType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Globalcom\DoormanBundle\Entity\KeyGroup',
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Globalcom\DoormanBundle\Entity\KeyGroup',
+                'translation_domain' => 'admin',
+            )
+        );
     }
 
     /**

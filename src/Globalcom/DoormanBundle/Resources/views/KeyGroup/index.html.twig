@@ -1,17 +1,17 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}{{ '%entity% list'|trans({'%entity%': 'KeyGroup'}, 'admin') }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'keyGroups'|trans({}, 'admin') }} - {{ parent() }}{% endblock %}
 {% macro thead(name, field, label) %}
     {% spaceless %}
         {% set sort = app.session.get('sort.' ~ name) %}
         {% if sort and sort.field == field %}
             {% if sort.type == 'DESC' %}
-                <a href="{{ path('admin_KeyGroup_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
+                <a href="{{ path('admin_keyGroup_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort-down"></i></a>
             {% elseif sort.type == 'ASC' %}
-                <a href="{{ path('admin_KeyGroup_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
+                <a href="{{ path('admin_keyGroup_sort', {field: field, type: 'DESC'}) }}">{{ label }} <i class="fa fa-sort-up"></i></a>
             {% endif %}
         {% else %}
-            <a href="{{ path('admin_KeyGroup_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
+            <a href="{{ path('admin_keyGroup_sort', {field: field, type: 'ASC'}) }}">{{ label }} <i class="fa fa-sort"></i></a>
         {% endif %}
     {% endspaceless %}
 {% endmacro %}
@@ -21,7 +21,7 @@
 
 
 {% block body %}
-    <h1>{{ '%entity% list'|trans({'%entity%': 'KeyGroup'}, 'admin') }}</h1>
+    <h1>{{ 'keyGroups'|trans({}, 'admin') }}</h1>
 
     {% include 'GlobalcomDoormanBundle:KeyGroup:filter.html.twig' with {form: form} %}
     
@@ -36,14 +36,14 @@
         <tbody>
             {% for keygroup in paginator %}
                 <tr>
-                    <td><a href="{{ path('admin_KeyGroup_show', {id: keygroup.id}) }}">{{ keygroup.id }}</a></td>
+                    <td><a href="{{ path('admin_keyGroup_show', {id: keygroup.id}) }}">{{ keygroup.id }}</a></td>
                     <td>{{ keygroup.desc }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_KeyGroup_show', {id: keygroup.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_keyGroup_show', {id: keygroup.id}) }}">
                                 <i class="fa fa-file-o"></i> {{ 'show'|trans({}, 'admin') }}
                             </a>
-                            <a class="btn btn-default btn-sm" href="{{ path('admin_KeyGroup_edit', {id: keygroup.id}) }}">
+                            <a class="btn btn-default btn-sm" href="{{ path('admin_keyGroup_edit', {id: keygroup.id}) }}">
                                 <i class="fa fa-edit"></i> {{ 'edit'|trans({}, 'admin') }}
                             </a>
                         </div>
@@ -57,7 +57,7 @@
     
     <ul class="new_entry list-unstyled">
         <li>
-            <a class="btn btn-info" href="{{ path('admin_KeyGroup_new') }}">
+            <a class="btn btn-info" href="{{ path('admin_keyGroup_new') }}">
                 <i class="fa fa-plus"></i> {{ 'Create a new entry'|trans({}, 'admin') }}
             </a>
         </li>

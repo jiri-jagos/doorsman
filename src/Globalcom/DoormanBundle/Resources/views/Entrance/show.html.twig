@@ -1,4 +1,4 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
 {% block title %}Entrance - {{ parent() }}{% endblock %}
 
@@ -8,19 +8,23 @@
     <table class="table table-hover record_properties">
         <tbody>
             <tr>
-                <th scope="row">Id</th>
+                <th scope="row">{{ 'id'|trans({}, 'admin') }}</th>
                 <td>{{ entrance.id }}</td>
             </tr>
             <tr>
-                <th scope="row">Ip</th>
+                <th scope="row">{{ 'house'|trans({}, 'admin') }}</th>
+                <td>{{ entrance.house.town ~ '-' ~ entrance.house.desc }}</td>
+            </tr>
+            <tr>
+                <th scope="row">{{ 'ip'|trans({}, 'admin') }}</th>
                 <td>{{ entrance.ip }}</td>
             </tr>
             <tr>
-                <th scope="row">Desc</th>
+                <th scope="row">{{ 'desc'|trans({}, 'admin') }}</th>
                 <td>{{ entrance.desc }}</td>
             </tr>
             <tr>
-                <th scope="row">Code</th>
+                <th scope="row">{{ 'code'|trans({}, 'admin') }}</th>
                 <td>{{ entrance.code }}</td>
             </tr>
         </tbody>
@@ -31,11 +35,11 @@
 
         <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_Entrance') }}">
+            <a class="btn btn-info" href="{{ path('admin_entrance') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('admin_Entrance_edit', {id: entrance.id}) }}">
+            <a class="btn btn-primary" href="{{ path('admin_entrance_edit', {id: entrance.id}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>

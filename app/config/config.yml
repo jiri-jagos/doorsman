@@ -36,8 +36,8 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:
-      - GlobalcomDoormanBundle
+    bundles: [ ]
+#      - GlobalcomDoormanBundle
     #java: /usr/bin/java
     filters:
         cssrewrite: ~

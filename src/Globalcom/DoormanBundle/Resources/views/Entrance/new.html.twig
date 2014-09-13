@@ -1,11 +1,11 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
 {% block title %}{{ '%entity% creation'|trans({'%entity%': 'Entrance'}, 'admin') }} - {{ parent() }}{% endblock %}
 
 {% block body %}
     <h1>{{ '%entity% creation'|trans({'%entity%': 'Entrance'}, 'admin') }}</h1>
 
-    {{ form_start(form, {action: path('admin_Entrance_create')}) }}
+    {{ form_start(form, {action: path('admin_entrance_create')}) }}
         {{ form_widget(form) }}
         <p>
             <button class="btn btn-primary" type="submit">{{ 'Create'|trans({}, 'admin') }}</button>
@@ -15,7 +15,7 @@
         
         <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_Entrance') }}">
+            <a class="btn btn-info" href="{{ path('admin_entrance') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
 

@@ -15,9 +15,9 @@ class KeyGroupFilterType extends AbstractType
     {
         $builder
         
-            ->add('desc', 'filter_text')
-            ->add('keys', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\Key'))
-            ->add('entrances', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\Entrance'))
+            ->add('desc', 'filter_text', array('label' => 'desc'))
+            ->add('keys', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\Key', 'label' => 'keys'))
+            ->add('entrances', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\Entrance', 'property' => 'fullName', 'label' => 'entrances'))
         ;
     }
 
@@ -29,6 +29,7 @@ class KeyGroupFilterType extends AbstractType
         $resolver->setDefaults(array(
             'data_class'        => 'Globalcom\DoormanBundle\Entity\KeyGroup',
             'csrf_protection'   => false,
+            'translation_domain' => 'admin',
             'validation_groups' => array('filter'),
             'method'            => 'GET',
         ));

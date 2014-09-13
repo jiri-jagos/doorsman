@@ -1,9 +1,9 @@
-{% extends "TwigBundle::layout.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block title %}KeyGroup - {{ parent() }}{% endblock %}
+{% block title %}{{'keyGroup'|trans({}, 'admin')}} - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>KeyGroup</h1>
+    <h1>{{'keyGroup'|trans({}, 'admin')}}</h1>
 
     <table class="table table-hover record_properties">
         <tbody>
@@ -23,11 +23,11 @@
 
         <div class="btn-group record_actions">
 
-            <a class="btn btn-info" href="{{ path('admin_KeyGroup') }}">
+            <a class="btn btn-info" href="{{ path('admin_keyGroup') }}">
                 <i class="fa fa-list"></i> {{ 'Back to the list'|trans({}, 'admin') }}
             </a>
 
-            <a class="btn btn-primary" href="{{ path('admin_KeyGroup_edit', {id: keygroup.id}) }}">
+            <a class="btn btn-primary" href="{{ path('admin_keyGroup_edit', {id: keygroup.id}) }}">
                 <i class="fa fa-edit"></i> {{ 'Edit'|trans({}, 'admin') }}
             </a>
             <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>

@@ -15,11 +15,11 @@ class EntranceType extends AbstractType
     {
         $builder
         
-            ->add('ip')
-            ->add('desc')
-            ->add('code')
-            ->add('house')
-            ->add('keyGroups')
+            ->add('ip', 'text', array('label' => 'ip'))
+            ->add('desc', 'text', array('label' => 'desc'))
+            ->add('code', 'text', array('label' => 'code'))
+            ->add('house', 'entity', array('class' => 'Globalcom\DoormanBundle\Entity\House', 'label' => 'house'))
+            ->add('keyGroups', null, array('label' => 'keyGroups'))
         ;
     }
 
@@ -30,6 +30,7 @@ class EntranceType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Globalcom\DoormanBundle\Entity\Entrance',
+            'translation_domain' => 'admin',
         ));
     }
 

@@ -16,14 +16,14 @@ use Doctrine\ORM\QueryBuilder;
 /**
  * KeyGroup controller.
  *
- * @Route("/admin/KeyGroup")
+ * @Route("/admin/skupiny-klicu")
  */
 class KeyGroupController extends Controller
 {
     /**
      * Lists all KeyGroup entities.
      *
-     * @Route("/", name="admin_KeyGroup")
+     * @Route("/", name="admin_keyGroup")
      * @Method("GET")
      * @Template()
      */
@@ -31,7 +31,7 @@ class KeyGroupController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(new KeyGroupFilterType());
-        if (!is_null($response = $this->saveFilter($form, 'keygroup', 'admin_KeyGroup'))) {
+        if (!is_null($response = $this->saveFilter($form, 'keygroup', 'admin_keyGroup'))) {
             return $response;
         }
         $qb = $em->getRepository('GlobalcomDoormanBundle:KeyGroup')->createQueryBuilder('k');
@@ -46,13 +46,13 @@ class KeyGroupController extends Controller
     /**
      * Finds and displays a KeyGroup entity.
      *
-     * @Route("/{id}/zobrazit", name="admin_KeyGroup_show", requirements={"id"="\d+"})
+     * @Route("/{id}/zobrazit", name="admin_keyGroup_show", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function showAction(KeyGroup $keygroup)
     {
-        $deleteForm = $this->createDeleteForm($keygroup->getId(), 'admin_KeyGroup_delete');
+        $deleteForm = $this->createDeleteForm($keygroup->getId(), 'admin_keyGroup_delete');
 
         return array(
             'keygroup' => $keygroup,
@@ -63,7 +63,7 @@ class KeyGroupController extends Controller
     /**
      * Displays a form to create a new KeyGroup entity.
      *
-     * @Route("/novy", name="admin_KeyGroup_new")
+     * @Route("/novy", name="admin_keyGroup_new")
      * @Method("GET")
      * @Template()
      */
@@ -81,7 +81,7 @@ class KeyGroupController extends Controller
     /**
      * Creates a new KeyGroup entity.
      *
-     * @Route("/vytvorit", name="admin_KeyGroup_create")
+     * @Route("/vytvorit", name="admin_keyGroup_create")
      * @Method("POST")
      * @Template("GlobalcomDoormanBundle:KeyGroup:new.html.twig")
      */
@@ -94,7 +94,7 @@ class KeyGroupController extends Controller
             $em->persist($keygroup);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_KeyGroup_show', array('id' => $keygroup->getId())));
+            return $this->redirect($this->generateUrl('admin_keyGroup_show', array('id' => $keygroup->getId())));
         }
 
         return array(
@@ -106,17 +106,17 @@ class KeyGroupController extends Controller
     /**
      * Displays a form to edit an existing KeyGroup entity.
      *
-     * @Route("/{id}/editovat", name="admin_KeyGroup_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/editovat", name="admin_keyGroup_edit", requirements={"id"="\d+"})
      * @Method("GET")
      * @Template()
      */
     public function editAction(KeyGroup $keygroup)
     {
         $editForm = $this->createForm(new KeyGroupType(), $keygroup, array(
-            'action' => $this->generateUrl('admin_KeyGroup_update', array('id' => $keygroup->getid())),
+            'action' => $this->generateUrl('admin_keyGroup_update', array('id' => $keygroup->getid())),
             'method' => 'PUT',
         ));
-        $deleteForm = $this->createDeleteForm($keygroup->getId(), 'admin_KeyGroup_delete');
+        $deleteForm = $this->createDeleteForm($keygroup->getId(), 'admin_keyGroup_delete');
 
         return array(
             'keygroup' => $keygroup,
@@ -128,22 +128,22 @@ class KeyGroupController extends Controller
     /**
      * Edits an existing KeyGroup entity.
      *
-     * @Route("/{id}/aktualizovat", name="admin_KeyGroup_update", requirements={"id"="\d+"})
+     * @Route("/{id}/aktualizovat", name="admin_keyGroup_update", requirements={"id"="\d+"})
      * @Method("PUT")
      * @Template("GlobalcomDoormanBundle:KeyGroup:edit.html.twig")
      */
     public function updateAction(KeyGroup $keygroup, Request $request)
     {
         $editForm = $this->createForm(new KeyGroupType(), $keygroup, array(
-            'action' => $this->generateUrl('admin_KeyGroup_update', array('id' => $keygroup->getid())),
+            'action' => $this->generateUrl('admin_keyGroup_update', array('id' => $keygroup->getid())),
             'method' => 'PUT',
         ));
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('admin_KeyGroup_edit', array('id' => $keygroup->getId())));
+            return $this->redirect($this->generateUrl('admin_keyGroup_edit', array('id' => $keygroup->getId())));
         }
-        $deleteForm = $this->createDeleteForm($keygroup->getId(), 'admin_KeyGroup_delete');
+        $deleteForm = $this->createDeleteForm($keygroup->getId(), 'admin_keyGroup_delete');
 
         return array(
             'keygroup' => $keygroup,
@@ -156,13 +156,13 @@ class KeyGroupController extends Controller
     /**
      * Save order.
      *
-     * @Route("/seradit/{field}/{type}", name="admin_KeyGroup_sort")
+     * @Route("/seradit/{field}/{type}", name="admin_keyGroup_sort")
      */
     public function sortAction($field, $type)
     {
         $this->setOrder('keygroup', $field, $type);
 
-        return $this->redirect($this->generateUrl('admin_KeyGroup'));
+        return $this->redirect($this->generateUrl('admin_keyGroup'));
     }
 
     /**
@@ -257,19 +257,19 @@ class KeyGroupController extends Controller
     /**
      * Deletes a KeyGroup entity.
      *
-     * @Route("/{id}/delete", name="admin_KeyGroup_delete", requirements={"id"="\d+"})
+     * @Route("/{id}/delete", name="admin_keyGroup_delete", requirements={"id"="\d+"})
      * @Method("DELETE")
      */
     public function deleteAction(KeyGroup $keygroup, Request $request)
     {
-        $form = $this->createDeleteForm($keygroup->getId(), 'admin_KeyGroup_delete');
+        $form = $this->createDeleteForm($keygroup->getId(), 'admin_keyGroup_delete');
         if ($form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($keygroup);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_KeyGroup'));
+        return $this->redirect($this->generateUrl('admin_keyGroup'));
     }
 
     /**

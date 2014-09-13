@@ -76,6 +76,12 @@ class Key
         return $this->desc . ' - ' . $this->code;
     }
 
+    public function getFullName()
+    {
+        return $this->__toString();
+    }
+
+
     /**
      * Get id
      *
