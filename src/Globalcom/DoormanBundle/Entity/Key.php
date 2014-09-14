@@ -78,7 +78,7 @@ class Key
 
     public function getFullName()
     {
-        return $this->__toString();
+        return $this->desc . ' - ' . $this->code;
     }
 
 
