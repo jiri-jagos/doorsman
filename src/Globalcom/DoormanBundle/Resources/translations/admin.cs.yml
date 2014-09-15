@@ -1,0 +1,67 @@
+mainTitle: Administrace
+
+loginPlease: Přihlaste se
+username: Uživatel
+password: Heslo
+rememberMe: Pamatovat
+signIn: Vstoupit
+
+nav:
+  house:
+    dropdown: Domy
+    index: Seznam
+    new: Nový
+  entrance:
+    dropdown: Vchody
+    index: Seznam
+    new: Nový
+  keyGroup:
+    dropdown: Skupiny klíčů
+    index: Seznam
+    new: Nový
+  key:
+    dropdown: Klíče
+    index: Seznam
+    new: Nový
+
+houses: Domy
+edit_house: Editace domu
+id: Id
+desc: Popis
+town: Město
+actions: Akce
+createHouse: Nový dům
+
+entrances: Vchody
+edit_entrance: Editace vchodu
+ip: IP addr.
+code: Kód
+house: Dům
+keyGroups: Skupiny klíčů
+createEntrance: Nový vchod
+
+keys: Klíče
+keyGroup: Skupina klíčů
+
+
+'%entity% edit': 'Editace %entity%'
+Edit: Editovat
+'Back to the list': 'Zpět na seznam'
+Delete: Smazat
+'Confirm delete': 'Potvrdit smazání'
+'You are about to delete an item': 'Chystáte se smazat položku'
+'this procedure is irreversible': 'Tato procedura je nevratná.'
+'Do you want to proceed?': 'Přejete si pokračovat?'
+Yes: Ano
+No: Ne
+'Show/hide filters': 'Zobrazit/skrýt filtry'
+Filter: Filtr
+'Reset filters': 'Zrušit filtry'
+'%entity% list': '%entity% seznam'
+Actions: Akce
+show: zobrazit
+edit: editovat
+'Create a new entry': 'Vytvořit novou položku'
+'%entity% creation': 'Vytvoření %entity%'
+Create: Vytvořit
+'Please login': 'Přihlaste se prosím'
