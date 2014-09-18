@@ -1,0 +1,5 @@
+{{ form_start(delete_form) }}
+        {{ form_widget(delete_form) }}
+    <button class="btn-xs btn-danger" type="submit"><i class="fa fa-trash-o"></i> {{ 'Delete'|trans({}, 'admin') }}</button>
+    <input name="modal" type="hidden" value="0">
+{{ form_end(delete_form) }}

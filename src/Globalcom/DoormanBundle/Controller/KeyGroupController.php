@@ -273,6 +273,19 @@ class KeyGroupController extends Controller
     }
 
     /**
+     * @param KeyGroup $keyGroup
+     * @Template()
+     */
+    public function deleteFormAction(KeyGroup $keyGroup)
+    {
+        $form = $this->createDeleteForm($keyGroup->getId(), 'admin_keyGroup_delete');
+
+        return array(
+            'delete_form' => $form->createView()
+        );
+    }
+
+    /**
      * Create Delete form
      *
      * @param integer                       $id

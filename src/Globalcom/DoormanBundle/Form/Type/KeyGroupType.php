@@ -21,7 +21,8 @@ class KeyGroupType extends AbstractType
                     'property' => 'fullName',
                     'label' => 'keys',
                     'multiple' => true,
-                    'expanded' => false
+                    'expanded' => false,
+                    'attr' => array('size' => '20')
                 )
             )
             ->add(
@@ -30,7 +31,8 @@ class KeyGroupType extends AbstractType
                     'property' => 'fullName',
                     'label' => 'entrances',
                     'multiple' => true,
-                    'expanded' => true
+                    'expanded' => false,
+                    'attr' => array('size' => '5')
                 )
             );
     }
