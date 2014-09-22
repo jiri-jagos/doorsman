@@ -35,8 +35,8 @@ class KeyGroup
      * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Key", inversedBy="keyGroups")
      * @ORM\JoinTable(
      *      name="keys_in_groups",
-     *      joinColumns={@ORM\JoinColumn(name="key_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="key_id", referencedColumnName="id")}
      * )
      */
     private $keys;
@@ -46,8 +46,8 @@ class KeyGroup
      * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Entrance", inversedBy="keyGroups")
      * @ORM\JoinTable(
      *      name="groups_entrances",
-     *      joinColumns={@ORM\JoinColumn(name="entrance_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
+     *      joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="entrance_id", referencedColumnName="id")}
      * )
      */
     private $entrances;
@@ -66,7 +66,7 @@ class KeyGroup
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,7 +89,7 @@ class KeyGroup
     /**
      * Get desc
      *
-     * @return string 
+     * @return string
      */
     public function getDesc()
     {
@@ -115,7 +115,7 @@ class KeyGroup
     }
 
     /**
-     * @return mixed
+     * @return Collection
      */
     public function getKeys()
     {
@@ -123,12 +123,58 @@ class KeyGroup
     }
 
     /**
-     * @param mixed $keys
+     * @param Collection $keys
      */
     public function setKeys($keys)
     {
         $this->keys = $keys;
 
         return $this;
+    }
+
+    /**
+     * @param Collection|Key[]|Key $keys
+     */
+    public function addKeys($keys)
+    {
+        if (is_array($keys) || $keys instanceof Collection) {
+            foreach ($keys as $key) {
+                $this->safeAddKey($key);
+            }
+        } elseif ($keys instanceof Key) {
+            $this->safeAddKey($keys);
+        }
+
+        return $this;
+    }
+
+    private function safeAddKey(Key $key)
+    {
+        if (!$this->keys->contains($key)) {
+            $this->keys->add($key);
+        }
+    }
+
+    /**
+     * @param Collection|Key[]|Key $keys
+     */
+    public function removeKeys($keys)
+    {
+        if (is_array($keys) || $keys instanceof Collection) {
+            foreach ($keys as $key) {
+                $this->safeRemoveKey($key);
+            }
+        } elseif ($keys instanceof Key) {
+            $this->safeRemoveKey($keys);
+        }
+
+        return $this;
+    }
+
+    private function safeRemoveKey(Key $key)
+    {
+        if ($this->keys->contains($key)) {
+            $this->keys->removeElement($key);
+        }
     }
 }

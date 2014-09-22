@@ -1,0 +1,18 @@
+{% extends '@GlobalcomDoorman/layout.html.twig' %}
+
+{% block title %}{{ 'Assign keys to keygroup: %keyGroupName%'|trans({'%keyGroupName%': keygroup.desc}, 'admin') }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>{{ 'Assign keys to keygroup: %keyGroupName%'|trans({'%keyGroupName%': keygroup.desc}, 'admin') }}</h1>
+
+    <div class="row">
+        <div class="col-md-10">
+            {% render(controller('GlobalcomDoormanBundle:KeyGroup:assignKeysForm', {'keygroup': keygroup})) %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

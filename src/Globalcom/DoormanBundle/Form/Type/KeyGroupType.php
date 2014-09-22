@@ -19,6 +19,7 @@ class KeyGroupType extends AbstractType
                 'keys', 'entity', array(
                     'class' => 'Globalcom\DoormanBundle\Entity\Key',
                     'property' => 'fullName',
+                    'required' => false,
                     'label' => 'keys',
                     'multiple' => true,
                     'expanded' => false,
@@ -29,6 +30,7 @@ class KeyGroupType extends AbstractType
                 'entrances', 'entity', array(
                     'class' => 'Globalcom\DoormanBundle\Entity\Entrance',
                     'property' => 'fullName',
+                    'required' => false,
                     'label' => 'entrances',
                     'multiple' => true,
                     'expanded' => false,

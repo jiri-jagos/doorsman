@@ -71,6 +71,12 @@ class Key
      */
     private $keyGroups;
 
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Entrance", mappedBy="keys")
+     */
+    private $entrances;
+
     public function __toString()
     {
         return $this->desc . ' - ' . $this->code;
@@ -244,6 +250,24 @@ class Key
     public function setKeyGroups($keyGroups)
     {
         $this->keyGroups = $keyGroups;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getEntrances()
+    {
+        return $this->entrances;
+    }
+
+    /**
+     * @param Collection $entrances
+     */
+    public function setEntrances($entrances)
+    {
+        $this->entrances = $entrances;
 
         return $this;
     }

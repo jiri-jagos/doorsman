@@ -1,0 +1,21 @@
+services:
+  keyRepo:
+    class: Doctrine\Common\Persistence\ObjectRepository
+    factory_service: doctrine
+    factory_method: getRepository
+    arguments:
+      - Globalcom\DoormanBundle\Entity\Key
+
+  keygroupAssignKeysType:
+    class: Globalcom\DoormanBundle\Form\Type\KeygroupAssignKeysType
+    arguments:
+      - @doctrine.orm.entity_manager
+    tags:
+      - { name: form.type, alias: keygroupAssignKeysType }
+
+  entranceAssignKeysType:
+    class: Globalcom\DoormanBundle\Form\Type\EntranceAssignKeysType
+    arguments:
+      - @doctrine.orm.entity_manager
+    tags:
+      - { name: form.type, alias: entranceAssignKeysType }

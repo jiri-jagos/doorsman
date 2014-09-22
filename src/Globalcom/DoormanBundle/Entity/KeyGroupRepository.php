@@ -3,6 +3,7 @@
 namespace Globalcom\DoormanBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * KeyGroupRepository
@@ -12,4 +13,28 @@ use Doctrine\ORM\EntityRepository;
  */
 class KeyGroupRepository extends EntityRepository
 {
+    public function getQbAllInEntrance(Entrance $entrance)
+    {
+        $qb = $this->createQueryBuilder('kg');
+        $qb
+            ->innerJoin('kg.entrances', 'e', Join::WITH, 'e = :entrance')
+            ->setParameter('entrance', $entrance);
+
+        return $qb;
+    }
+
+    public function getQbAllNotInEntrance(Entrance $entrance)
+    {
+        $qb = $this->createQueryBuilder('kg');
+        $qb
+            ->innerJoin('kg.entrances', 'e', Join::WITH, 'e != :entrance')
+            ->setParameter('entrance', $entrance);
+
+        return $qb;
+    }
+
+    public function findAllNotInEntrance(Entrance $entrance)
+    {
+
+    }
 }

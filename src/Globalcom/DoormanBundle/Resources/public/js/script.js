@@ -1,7 +1,7 @@
 $(document).ready(function() {
     'use strict';
     /* delete confirm */
-    $('form#delete').submit(function (e) {
+    $('form.delete').submit(function (e) {
         var $form = $(this), $hidden = $form.find('input[name="modal"]');
         if ($hidden.val() === '0') {
             e.preventDefault();

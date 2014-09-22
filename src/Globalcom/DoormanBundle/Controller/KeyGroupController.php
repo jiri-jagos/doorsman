@@ -2,6 +2,9 @@
 
 namespace Globalcom\DoormanBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Globalcom\DoormanBundle\DomainObject\KeyGroupAssignKeys;
+use Globalcom\DoormanBundle\Entity\KeyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -126,6 +129,86 @@ class KeyGroupController extends Controller
     }
 
     /**
+     * Displays a page for assigning keys to an existing KeyGroup entity.
+     *
+     * @Route("/{id}/priradit-klice", name="admin_keyGroup_assignKeys", requirements={"id"="\d+"})
+     * #Method("GET")
+     * @Template()
+     */
+    public function assignKeysAction(KeyGroup $keygroup, Request $request)
+    {
+        $formData = $this->readKeygroupAssignKeyFormData($keygroup);
+
+        $form = $this->createForm('keygroupAssignKeysType', $formData, array('keyGroup' => $keygroup));
+
+        $form->handleRequest($request);
+        if ($form->isValid() && $request->request->has('keygroupAssignKeysType')) {
+            /** @var KeyGroupAssignKeys $formData */
+            $formData = $form->getData();
+
+            $requestKeygroupAssignKeysType = $request->request->get('keygroupAssignKeysType');
+
+            if (isset($requestKeygroupAssignKeysType['addToGroup']) && $formData->getKeysToAdd()->count()) {
+                $keygroup->addKeys($formData->getKeysToAdd());
+            } elseif (isset($requestKeygroupAssignKeysType['removeFromGroup']) && $formData->getKeysToRemove()->count()) {
+                $keygroup->removeKeys($formData->getKeysToRemove());
+            }
+
+            $om = $this->getDoctrine()->getManager();
+            $om->persist($keygroup);
+            $om->flush();
+
+            return $this->redirect(
+                $this->generateUrl(
+                    'admin_keyGroup_assignKeys',
+                    array(
+                        'id' => $keygroup->getId()
+                    )
+                )
+            );
+        }
+
+        return array(
+            'keygroup' => $keygroup,
+            'form' => $form->createView(),
+            'formData' => $formData,
+        );
+    }
+
+    private function readKeygroupAssignKeyFormData(KeyGroup $keygroup)
+    {
+        /** @var KeyRepository $keysRepo */
+        $keysRepo = $this->getDoctrine()->getManager()->getRepository('GlobalcomDoormanBundle:Key');
+
+        $formData = new KeyGroupAssignKeys();
+        $formData
+            ->setKeysToAdd(
+                new ArrayCollection($keysRepo->findAllNotInKeygroup($keygroup))
+            )
+            ->setKeysToRemove(clone($keygroup->getKeys()))
+        ;
+
+        return $formData;
+    }
+
+    /**
+     * Renders a form to assign keys to an existing KeyGroup entity.
+     *
+     * @Method("GET")
+     * @Template()
+     */
+    public function assignKeysFormAction(KeyGroup $keygroup)
+    {
+        $formData = $this->readKeygroupAssignKeyFormData($keygroup);
+
+        $form = $this->createForm('keygroupAssignKeysType', $formData, array('keyGroup' => $keygroup));
+
+        return array(
+            'form' => $form->createView(),
+        );
+    }
+
+    /**
      * Edits an existing KeyGroup entity.
      *
      * @Route("/{id}/aktualizovat", name="admin_keyGroup_update", requirements={"id"="\d+"})
@@ -151,7 +234,6 @@ class KeyGroupController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
 
     /**
      * Save order.
@@ -273,7 +355,6 @@ class KeyGroupController extends Controller
     }
 
     /**
-     * @param KeyGroup $keyGroup
      * @Template()
      */
     public function deleteFormAction(KeyGroup $keyGroup)
@@ -281,7 +362,8 @@ class KeyGroupController extends Controller
         $form = $this->createDeleteForm($keyGroup->getId(), 'admin_keyGroup_delete');
 
         return array(
-            'delete_form' => $form->createView()
+            'id' => $keyGroup->getId(),
+            'delete_form' => $form->createView(),
         );
     }
 

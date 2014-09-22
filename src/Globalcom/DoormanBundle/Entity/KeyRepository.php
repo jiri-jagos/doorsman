@@ -3,6 +3,7 @@
 namespace Globalcom\DoormanBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * KeyRepository
@@ -12,4 +13,65 @@ use Doctrine\ORM\EntityRepository;
  */
 class KeyRepository extends EntityRepository
 {
+    public function getQbAllNotInKeygroup(KeyGroup $keyGroup)
+    {
+        $qb = $this->createQueryBuilder('k');
+        if ($keyGroup->getKeys()->count()) {
+            $qb
+                ->andWhere($qb->expr()->notIn('k', ':keys'))
+                ->setParameter('keys', $keyGroup->getKeys()->toArray())
+            ;
+        }
+
+        return $qb;
+    }
+
+    public function findAllNotInKeygroup(KeyGroup $keyGroup)
+    {
+        $qb = $this->getQbAllNotInKeygroup($keyGroup);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getQbAllInKeygroup(KeyGroup $keyGroup)
+    {
+        $qb = $this->createQueryBuilder('k');
+        $qb
+            ->innerJoin('k.keyGroups', 'kg', Join::WITH, 'kg = :keyGroup')
+            ->setParameter('keyGroup', $keyGroup)
+        ;
+
+        return $qb;
+    }
+
+    public function getQbAllInEntrance(Entrance $entrance)
+    {
+        $qb = $this->createQueryBuilder('k');
+        $qb
+            ->innerJoin('k.entrances', 'e', Join::WITH, 'e = :entrance')
+            ->setParameter('entrance', $entrance)
+        ;
+
+        return $qb;
+    }
+
+    public function getQbAllNotInEntrance(Entrance $entrance)
+    {
+        $qb = $this->createQueryBuilder('k');
+        if ($entrance->getKeys()->count()) {
+            $qb
+                ->andWhere($qb->expr()->notIn('k', ':keys'))
+                ->setParameter('keys', $entrance->getKeys()->toArray())
+            ;
+        }
+
+        return $qb;
+    }
+
+    public function findAllNotInEntrance(Entrance $entrance)
+    {
+        $qb = $this->getQbAllNotInEntrance($entrance);
+
+        return $qb->getQuery()->getResult();
+    }
 }

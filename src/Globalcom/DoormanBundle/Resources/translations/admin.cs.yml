@@ -43,6 +43,16 @@ createEntrance: Nový vchod
 keys: Klíče
 keyGroup: Skupina klíčů
 
+'Assign keys': Přiřadit klíče
+'Active Keys': Aktivní klíče
+'All Keys': Všechny klíče
+'Assign keys to keygroup: %keyGroupName%': 'Přiřadit klíče do skupiny: %keyGroupName%'
+
+'Active KeyGroups': Aktivní skupiny
+'All KeyGroups': V3echny skupiny
+
+
+'Submit': Odeslat
 
 '%entity% edit': 'Editace %entity%'
 Edit: Editovat
