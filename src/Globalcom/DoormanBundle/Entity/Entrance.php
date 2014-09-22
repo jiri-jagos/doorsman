@@ -63,9 +63,21 @@ class Entrance
      */
     private $keyGroups;
 
+    /**
+     * @var Collection
+     * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Key", inversedBy="entrances")
+     * @ORM\JoinTable(
+     *      name="keys_entrances",
+     *      joinColumns={@ORM\JoinColumn(name="entrance_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="key_id", referencedColumnName="id")}
+     * )
+     */
+    private $keys;
+
     function __construct()
     {
         $this->keyGroups = new ArrayCollection();
+        $this->keys = new ArrayCollection();
     }
 
 
@@ -189,8 +201,26 @@ class Entrance
         return $this;
     }
 
+    /**
+     * @return Collection
+     */
+    public function getKeys()
+    {
+        return $this->keys;
+    }
+
+    /**
+     * @param Collection $keys
+     */
+    public function setKeys($keys)
+    {
+        $this->keys = $keys;
+
+        return $this;
+    }
+
     public function getFullName()
     {
-        return $this->desc . ' - ' . $this->code;
+        return trim($this->house->getDesc()) . ' / ' . $this->desc . '(' . $this->code . ')';
     }
 }

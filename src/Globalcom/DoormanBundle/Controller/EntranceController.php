@@ -2,6 +2,10 @@
 
 namespace Globalcom\DoormanBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Globalcom\DoormanBundle\DomainObject\EntranceAssignKeys;
+use Globalcom\DoormanBundle\Entity\KeyGroupRepository;
+use Globalcom\DoormanBundle\Entity\KeyRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -77,6 +81,108 @@ class EntranceController extends Controller
             'form'   => $form->createView(),
         );
     }
+
+    /**
+     * Displays a page for assigning keys to an existing KeyGroup entity.
+     *
+     * @Route("/{id}/priradit-klice", name="admin_entrance_assignKeys", requirements={"id"="\d+"})
+     * #Method("GET")
+     * @Template()
+     */
+    public function assignKeysAction(Entrance $entrance, Request $request)
+    {
+        $formData = $this->readEntranceAssignKeyFormData($entrance);
+
+        $form = $this->createForm('entranceAssignKeysType', $formData, array('entrance' => $entrance));
+
+        $form->handleRequest($request);
+        if ($form->isValid() && $request->request->has('keygroupAssignKeysType')) {
+            /** @var KeyGroupAssignKeys $formData */
+            $formData = $form->getData();
+
+            $requestKeygroupAssignKeysType = $request->request->get('keygroupAssignKeysType');
+
+            if (isset($requestKeygroupAssignKeysType['addToGroup']) && $formData->getKeysToAdd()->count()) {
+                $entrance->addKeys($formData->getKeysToAdd());
+            } elseif (isset($requestKeygroupAssignKeysType['removeFromGroup']) && $formData->getKeysToRemove()->count()) {
+                $entrance->removeKeys($formData->getKeysToRemove());
+            }
+
+            $om = $this->getDoctrine()->getManager();
+            $om->persist($entrance);
+            $om->flush();
+
+            return $this->redirect(
+                $this->generateUrl(
+                    'admin_entrance_assignKeys',
+                    array(
+                        'id' => $entrance->getId()
+                    )
+                )
+            );
+        }
+
+        return array(
+            'entrance' => $entrance,
+            'form' => $form->createView(),
+            'formData' => $formData,
+        );
+    }
+
+    private function readEntranceAssignKeyFormData(Entrance $entrance)
+    {
+        /** @var KeyRepository $keysRepo */
+        $keysRepo = $this->getDoctrine()->getManager()->getRepository('GlobalcomDoormanBundle:Key');
+
+        $formData = new EntranceAssignKeys();
+        $formData
+            ->setKeysToAdd(
+                new ArrayCollection($keysRepo->findAllNotInEntrance($entrance))
+            )
+            ->setKeysToRemove(clone($entrance->getKeys()))
+        ;
+
+        return $formData;
+    }
+
+    /**
+     * Renders a form to assign keys to an existing KeyGroup entity.
+     *
+     * @Method("GET")
+     * @Template()
+     */
+    public function assignKeysFormAction(Entrance $entrance)
+    {
+        $formData = $this->readKeygroupAssignKeyFormData($entrance);
+
+        $form = $this->createForm('entranceAssignKeysType', $formData, array('entrance' => $entrance));
+
+        return array(
+            'form' => $form->createView(),
+        );
+    }
+
+    private function readKeygroupAssignKeyFormData(Entrance $entrance)
+    {
+        /** @var KeyRepository $keyRepo */
+        $keyRepo = $this->getDoctrine()->getManager()->getRepository('GlobalcomDoormanBundle:Key');
+
+        /** @var KeyGroupRepository $keyGroupRepo */
+        $keyGroupRepo = $this->getDoctrine()->getManager()->getRepository('GlobalcomDoormanBundle:KeyGroup');
+
+        $formData = new EntranceAssignKeys();
+        $formData
+            ->setKeyGroupsToAdd($keyGroupRepo->findAllNotInEntrance($entrance))
+            ->setKeyGroupsToRemove(clone($entrance->getKeyGroups()))
+            ->setKeysToAdd(
+                new ArrayCollection($keyRepo->findAllNotInEntrance($entrance))
+            )
+            ->setKeysToRemove(clone($entrance->getKeys()))
+        ;
+
+        return $formData;
+    }
+
 
     /**
      * Creates a new Entrance entity.

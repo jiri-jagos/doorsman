@@ -14,11 +14,6 @@ class EntranceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
-            ->add('ip', 'text', array('label' => 'ip'))
-            ->add('desc', 'text', array('label' => 'desc'))
-            ->add('code', 'text', array('label' => 'code'))
-            ->add('house', 'entity', array('class' => 'Globalcom\DoormanBundle\Entity\House', 'label' => 'house'))
             ->add('keyGroups', null, array('label' => 'keyGroups'))
         ;
     }

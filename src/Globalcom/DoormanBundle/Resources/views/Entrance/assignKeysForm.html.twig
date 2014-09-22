@@ -1,0 +1,19 @@
+{% form_theme form 'GlobalcomDoormanBundle::formTheme.html.twig' %}
+
+<div class="row">
+{{ form_start(form) }}
+    <div class="col-md-4">
+        {{ form_row(form.keyGroupsToRemove) }}
+        {{ form_row(form.keysToRemove) }}
+    </div>
+    <div class="col-md-1" style="vertical-align: middle">
+        {{ form_row(form.addToEntrance, { 'label': '<<<' }) }}
+        {{ form_row(form.removeFromEntrance, { 'label': '>>>' }) }}
+    </div>
+    <div class="col-md-4">
+        {{ form_row(form.keyGroupsToAdd) }}
+        {{ form_row(form.keysToAdd) }}
+    </div>
+{{ form_rest(form) }}
+{{ form_end(form) }}
+</div>

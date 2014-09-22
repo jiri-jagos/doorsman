@@ -14,12 +14,10 @@ class EntranceFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        
-            ->add('ip', 'filter_text')
-            ->add('desc', 'filter_text')
-            ->add('code', 'filter_text')
-            ->add('house', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\House'))
-            ->add('keyGroups', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\KeyGroup'))
+            ->add('desc', 'filter_text', array('label' => 'desc'))
+            ->add('code', 'filter_text', array('label' => 'code'))
+            ->add('house', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\House', 'label' => 'house', 'empty_value' => 'house'))
+            ->add('keyGroups', 'filter_entity', array('class' => 'Globalcom\DoormanBundle\Entity\KeyGroup', 'label' => 'keyGroup', 'empty_value' => 'keyGroup'))
         ;
     }
 
@@ -31,6 +29,7 @@ class EntranceFilterType extends AbstractType
         $resolver->setDefaults(array(
             'data_class'        => 'Globalcom\DoormanBundle\Entity\Entrance',
             'csrf_protection'   => false,
+            'translation_domain' => 'admin',
             'validation_groups' => array('filter'),
             'method'            => 'GET',
         ));

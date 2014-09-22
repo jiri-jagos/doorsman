@@ -1,0 +1,18 @@
+{% extends '@GlobalcomDoorman/layout.html.twig' %}
+
+{% block title %}{{ 'Assign keys to entrance: %entranceName%'|trans({'%entranceName%': entrance.fullName}, 'admin') }} - {{ parent() }}{% endblock %}
+
+{% block body %}
+<h1>{{ 'Assign keys to entrance: %entranceName%'|trans({'%entranceName%': entrance.fullName}, 'admin') }}</h1>
+
+    <div class="row">
+        <div class="col-md-10">
+            {% render(controller('GlobalcomDoormanBundle:Entrance:assignKeysForm', {'entrance': entrance})) %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
