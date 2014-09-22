@@ -1,10 +1,14 @@
-<button type="button" class="btn btn-default filter" data-toggle="collapse" data-target="#filter">{{ 'Show/hide filters'|trans({}, 'admin') }} <i class="fa fa-angle-{{ app.session.get('filter.house') ? 'right' : 'down' }}"></i></button>
+{% form_theme form 'GlobalcomDoormanBundle::filterFormTheme.html.twig' %}
+
+<button type="button" class="btn btn-default filter" data-toggle="collapse"
+        data-target="#filter">{{ 'Show/hide filters'|trans({}, 'admin') }} <i
+            class="fa fa-angle-{{ app.session.get('filter.house') ? 'right' : 'down' }}"></i></button>
 <div id="filter" class="collapse {% if app.session.get('filter.house') %} in{% endif %}">
-    <form method="get" action="">
+    <form method="get" action="" class="form-inline">
         {{ form_widget(form) }}
-        <p class="btn-group">
-            <button class="btn btn-primary" type="submit" name="submit-filter"><i class="fa fa-filter"></i> {{ 'Filter'|trans({}, 'admin') }}</button>
-            <a class="btn btn-default" href="?reset-filter"><i class="fa fa-times"></i> {{ 'Reset filters'|trans({}, 'admin') }}</a>
-        </p>
+        <button class="btn btn-primary" type="submit" name="submit-filter"><i
+                    class="fa fa-filter"></i> {{ 'Filter'|trans({}, 'admin') }}</button>
+        <a class="btn btn-default" href="?reset-filter"><i
+                    class="fa fa-times"></i> {{ 'Reset filters'|trans({}, 'admin') }}</a>
     </form>
 </div>
