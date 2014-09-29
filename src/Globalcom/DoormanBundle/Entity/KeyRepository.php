@@ -52,6 +52,29 @@ class KeyRepository extends EntityRepository
             ->setParameter('entrance', $entrance)
         ;
 
+        if ($entrance->getKeyGroups()->count()) {
+
+            $keysInGroupsIds = array();
+            foreach ($entrance->getKeyGroups() as $keyGroup) { /** @var $keyGroup KeyGroup */
+                $keysInGroupsIds = array_merge(
+                    $keysInGroupsIds,
+                    $keyGroup
+                        ->getKeys()
+                        ->map(
+                            function(Key $key)
+                            {
+                                return $key->getId();
+                            }
+                        )
+                        ->toArray()
+                );
+            }
+
+            if (count($keysInGroupsIds)) {
+                $qb->orWhere($qb->expr()->in('k.id', $keysInGroupsIds));
+            }
+        }
+
         return $qb;
     }
 

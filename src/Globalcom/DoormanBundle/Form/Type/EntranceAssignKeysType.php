@@ -3,6 +3,7 @@
 namespace Globalcom\DoormanBundle\Form\Type;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Globalcom\DoormanBundle\Entity\Entrance;
 use Globalcom\DoormanBundle\Entity\KeyGroupRepository;
 use Globalcom\DoormanBundle\Entity\KeyRepository;
 use Symfony\Component\Form\AbstractType;
@@ -54,7 +55,7 @@ class EntranceAssignKeysType extends AbstractType
                 array(
                     'class' => 'Globalcom\DoormanBundle\Entity\KeyGroup',
                     'property' => 'desc',
-                    'query_builder' => $keyGroupRepo->getQbAllInEntrance($entrance),
+                    'query_builder' => $keyGroupRepo->getQbAllNotInEntrance($entrance),
                     'required' => false,
                     'label' => 'All KeyGroups',
                     'multiple' => true,
@@ -69,6 +70,10 @@ class EntranceAssignKeysType extends AbstractType
                     'class' => 'Globalcom\DoormanBundle\Entity\Key',
                     'property' => 'fullName',
                     'query_builder' => $keyRepo->getQbAllInEntrance($entrance),
+//                    'choices' => function (Entrance $entrance) use ($keyRepo)
+//                    {
+//                        $entranceGroups = $entrance->getKeyGroups();
+//                    },
                     'required' => false,
                     'label' => 'Active Keys',
                     'multiple' => true,

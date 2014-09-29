@@ -54,12 +54,15 @@ class Entrance
 
     /**
      * @var Collection
+     *
      * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\KeyGroup", mappedBy="entrances")
      * @ORM\JoinTable(
      *      name="groups_entrances",
      *      joinColumns={@ORM\JoinColumn(name="entrance_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")}
      * )
+     *
+     * #ORM\OneToMany(targetEntity="Globalcom\DoormanBundle\Entity\KeyGroupHasEntrance", mappedBy="entrance")
      */
     private $keyGroups;
 

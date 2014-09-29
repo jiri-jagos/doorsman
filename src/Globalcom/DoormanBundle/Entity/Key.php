@@ -77,11 +77,6 @@ class Key
      */
     private $entrances;
 
-    public function __toString()
-    {
-        return $this->desc . ' - ' . $this->code;
-    }
-
     public function getFullName()
     {
         return $this->desc . ' - ' . $this->color;

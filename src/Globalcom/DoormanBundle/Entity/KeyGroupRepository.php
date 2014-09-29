@@ -17,8 +17,11 @@ class KeyGroupRepository extends EntityRepository
     {
         $qb = $this->createQueryBuilder('kg');
         $qb
-            ->innerJoin('kg.entrances', 'e', Join::WITH, 'e = :entrance')
-            ->setParameter('entrance', $entrance);
+            ->innerJoin('Globalcom\DoormanBundle\Entity\KeyGroupHasEntrance', 'kghe', Join::WITH, 'kghe.keyGroup = kg')
+            ->innerJoin('Globalcom\DoormanBundle\Entity\Entrance', 'e', Join::WITH, 'kghe.entrance = e')
+            ->where('e = :entrance')
+            ->setParameter('entrance', $entrance)
+        ;
 
         return $qb;
     }
@@ -26,15 +29,26 @@ class KeyGroupRepository extends EntityRepository
     public function getQbAllNotInEntrance(Entrance $entrance)
     {
         $qb = $this->createQueryBuilder('kg');
-        $qb
-            ->innerJoin('kg.entrances', 'e', Join::WITH, 'e != :entrance')
-            ->setParameter('entrance', $entrance);
+
+        if ($entrance->getKeyGroups()->count()) {
+            $entranceKeygroupsIds = $entrance
+                ->getKeyGroups()
+                ->map(
+                    function (KeyGroup $keyGroup)
+                    {
+                        return $keyGroup->getId();
+                    })
+                ->toArray()
+            ;
+
+            $qb->where($qb->expr()->notIn('kg.id', $entranceKeygroupsIds));
+        }
 
         return $qb;
     }
 
     public function findAllNotInEntrance(Entrance $entrance)
     {
-
+        return $this->getQbAllNotInEntrance($entrance)->getQuery()->getResult();
     }
 }

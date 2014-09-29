@@ -17,7 +17,7 @@ class KeyGroupFilterType extends AbstractType
             ->add('desc', 'filter_text', array('label' => 'desc'))
             ->add(
                 'keys', 'filter_entity',
-                array('class' => 'Globalcom\DoormanBundle\Entity\Key', 'label' => 'keys', 'empty_value' => 'keys')
+                array('class' => 'Globalcom\DoormanBundle\Entity\Key', 'label' => 'keys', 'empty_value' => 'keys', 'property' => 'fullName')
             )
             ->add(
                 'entrances', 'filter_entity', array(
