@@ -68,7 +68,7 @@ class Entrance
 
     /**
      * @var Collection
-     * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Key", inversedBy="entrances")
+     * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Key", inversedBy="entrances", cascade={"all"})
      * @ORM\JoinTable(
      *      name="keys_entrances",
      *      joinColumns={@ORM\JoinColumn(name="entrance_id", referencedColumnName="id")},
@@ -204,6 +204,52 @@ class Entrance
         return $this;
     }
 
+    public function addKeyGroups($keyGroups)
+    {
+        if (is_array($keyGroups) || $keyGroups instanceof Collection) {
+            foreach ($keyGroups as $keyGroup) {
+                $this->safeAddKeyGroup($keyGroup);
+            }
+        } elseif (1) {
+//            TODO: Finish or delete
+        }
+
+        return $this;
+    }
+
+    private function safeAddKeyGroup(KeyGroup $keyGroup)
+    {
+        if (!$this->keyGroups->contains($keyGroup)) {
+            $this->keyGroups->add($keyGroup);
+            $keyGroup->addEntrances($this);
+        }
+
+        return $this;
+    }
+
+    public function removeKeyGroups($keyGroups)
+    {
+        if (is_array($keyGroups) || $keyGroups instanceof Collection) {
+            foreach ($keyGroups as $keyGroup) {
+                $this->safeRemoveKeyGroup($keyGroup);
+            }
+        } elseif ($keyGroups instanceof KeyGroup) {
+            $this->safeRemoveKeyGroup($keyGroups);
+        }
+
+        return $this;
+    }
+
+    private function safeRemoveKeygroup(KeyGroup $keyGroup)
+    {
+        if ($this->keyGroups->contains($keyGroup)) {
+            $this->keyGroups->removeElement($keyGroup);
+            $keyGroup->removeEntrances($this);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection
      */
@@ -220,6 +266,54 @@ class Entrance
         $this->keys = $keys;
 
         return $this;
+    }
+
+    /**
+     * @param Collection|Key[]|Key $keys
+     */
+    public function addKeys($keys)
+    {
+        if (is_array($keys) || $keys instanceof Collection) {
+            foreach ($keys as $key) {
+                $this->safeAddKey($key);
+            }
+        } elseif ($keys instanceof Key) {
+            $this->safeAddKey($keys);
+        }
+
+        return $this;
+    }
+
+    private function safeAddKey(Key $key)
+    {
+        if (!$this->keys->contains($key)) {
+            $this->keys->add($key);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Collection|Key[]|Key $keys
+     */
+    public function removeKeys($keys)
+    {
+        if (is_array($keys) || $keys instanceof Collection) {
+            foreach ($keys as $key) {
+                $this->safeRemoveKey($key);
+            }
+        } elseif ($keys instanceof Key) {
+            $this->safeRemoveKey($keys);
+        }
+
+        return $this;
+    }
+
+    private function safeRemoveKey(Key $key)
+    {
+        if ($this->keys->contains($key)) {
+            $this->keys->removeElement($key);
+        }
     }
 
     public function getFullName()

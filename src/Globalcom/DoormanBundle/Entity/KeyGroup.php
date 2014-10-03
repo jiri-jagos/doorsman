@@ -44,7 +44,7 @@ class KeyGroup
     /**
      * @var Collection
      *
-     * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Entrance", inversedBy="keyGroups")
+     * @ORM\ManyToMany(targetEntity="Globalcom\DoormanBundle\Entity\Entrance", inversedBy="keyGroups", cascade={"all"})
      * @ORM\JoinTable(
      *      name="groups_entrances",
      *      joinColumns={@ORM\JoinColumn(name="group_id", referencedColumnName="id")},
@@ -117,6 +117,51 @@ class KeyGroup
         return $this;
     }
 
+    public function addEntrances($entrances)
+    {
+        if (is_array($entrances) || $entrances instanceof Collection) {
+            foreach ($entrances as $entrance) {
+                $this->safeAddEntrance($entrance);
+            }
+        } elseif ($entrances instanceof Entrance) {
+            $this->safeAddEntrance($entrances);
+        }
+
+        return $this;
+    }
+
+    private function safeAddEntrance(Entrance $entrance)
+    {
+        if (!$this->entrances->contains($entrance))
+        {
+            $this->entrances->add($entrance);
+        }
+
+        return $this;
+    }
+
+    public function removeEntrances($entrances)
+    {
+        if (is_array($entrances) || $entrances instanceof Collection) {
+            foreach ($entrances as $entrance) {
+                $this->safeRemoveEntrance($entrance);
+            }
+        } elseif ($entrances instanceof Entrance) {
+            $this->safeRemoveEntrance($entrances);
+        }
+
+        return $this;
+    }
+
+    private function safeRemoveEntrance(Entrance $entrance)
+    {
+        if ($this->entrances->contains($entrance)) {
+            $this->entrances->removeElement($entrance);
+        }
+
+        return $this;
+    }
+
     /**
      * @return Collection
      */
@@ -156,6 +201,8 @@ class KeyGroup
         if (!$this->keys->contains($key)) {
             $this->keys->add($key);
         }
+
+        return $this;
     }
 
     /**

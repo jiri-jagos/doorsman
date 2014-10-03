@@ -150,7 +150,8 @@ class KeyGroupController extends Controller
 
             if (isset($requestKeygroupAssignKeysType['addToGroup']) && $formData->getKeysToAdd()->count()) {
                 $keygroup->addKeys($formData->getKeysToAdd());
-            } elseif (isset($requestKeygroupAssignKeysType['removeFromGroup']) && $formData->getKeysToRemove()->count()) {
+            }
+            if (isset($requestKeygroupAssignKeysType['removeFromGroup']) && $formData->getKeysToRemove()->count()) {
                 $keygroup->removeKeys($formData->getKeysToRemove());
             }
 

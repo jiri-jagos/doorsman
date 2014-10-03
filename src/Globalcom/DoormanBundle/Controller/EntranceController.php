@@ -40,9 +40,9 @@ class EntranceController extends Controller
         }
         $qb = $em->getRepository('GlobalcomDoormanBundle:Entrance')->createQueryBuilder('e');
         $paginator = $this->filter($form, $qb, 'entrance');
-        
+
         return array(
-            'form'      => $form->createView(),
+            'form' => $form->createView(),
             'paginator' => $paginator,
         );
     }
@@ -78,7 +78,7 @@ class EntranceController extends Controller
 
         return array(
             'entrance' => $entrance,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -96,16 +96,32 @@ class EntranceController extends Controller
         $form = $this->createForm('entranceAssignKeysType', $formData, array('entrance' => $entrance));
 
         $form->handleRequest($request);
-        if ($form->isValid() && $request->request->has('keygroupAssignKeysType')) {
-            /** @var KeyGroupAssignKeys $formData */
+        if ($form->isValid() && $request->request->has('entranceAssignKeysType')) {
+            /** @var EntranceAssignKeys $formData */
             $formData = $form->getData();
 
-            $requestKeygroupAssignKeysType = $request->request->get('keygroupAssignKeysType');
+            $requestEntranceAssignKeysType = $request->request->get('entranceAssignKeysType');
 
-            if (isset($requestKeygroupAssignKeysType['addToGroup']) && $formData->getKeysToAdd()->count()) {
-                $entrance->addKeys($formData->getKeysToAdd());
-            } elseif (isset($requestKeygroupAssignKeysType['removeFromGroup']) && $formData->getKeysToRemove()->count()) {
-                $entrance->removeKeys($formData->getKeysToRemove());
+            if ($form->get('addToEntrance')->isClicked()) {
+
+                if (isset($requestEntranceAssignKeysType['keyGroupsToAdd']) && $formData->getKeyGroupsToAdd()->count()
+                ) {
+                    $entrance->addKeyGroups($formData->getKeyGroupsToAdd());
+                }
+                if (isset($requestEntranceAssignKeysType['keysToAdd']) && $formData->getKeysToAdd()->count()) {
+                    $entrance->addKeys($formData->getKeysToAdd());
+                }
+
+            } elseif ($form->get('removeFromEntrance')->isClicked()) {
+                if (isset($requestEntranceAssignKeysType['keyGroupsToRemove']) && $formData->getKeyGroupsToRemove()
+                        ->count()
+                ) {
+                    $entrance->removeKeyGroups($formData->getKeyGroupsToRemove());
+                }
+
+                if (isset($requestEntranceAssignKeysType['keysToRemove']) && $formData->getKeysToRemove()->count()) {
+                    $entrance->removeKeys($formData->getKeysToRemove());
+                }
             }
 
             $om = $this->getDoctrine()->getManager();
@@ -139,8 +155,7 @@ class EntranceController extends Controller
             ->setKeysToAdd(
                 new ArrayCollection($keysRepo->findAllNotInEntrance($entrance))
             )
-            ->setKeysToRemove(clone($entrance->getKeys()))
-        ;
+            ->setKeysToRemove(clone($entrance->getKeys()));
 
         return $formData;
     }
@@ -177,8 +192,7 @@ class EntranceController extends Controller
             ->setKeysToAdd(
                 new ArrayCollection($keyRepo->findAllNotInEntrance($entrance))
             )
-            ->setKeysToRemove(clone($entrance->getKeys()))
-        ;
+            ->setKeysToRemove(clone($entrance->getKeys()));
 
         return $formData;
     }
@@ -205,7 +219,7 @@ class EntranceController extends Controller
 
         return array(
             'entrance' => $entrance,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         );
     }
 
@@ -218,15 +232,17 @@ class EntranceController extends Controller
      */
     public function editAction(Entrance $entrance)
     {
-        $editForm = $this->createForm(new EntranceType(), $entrance, array(
-            'action' => $this->generateUrl('admin_entrance_update', array('id' => $entrance->getid())),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(
+            new EntranceType(), $entrance, array(
+                'action' => $this->generateUrl('admin_entrance_update', array('id' => $entrance->getid())),
+                'method' => 'PUT',
+            )
+        );
         $deleteForm = $this->createDeleteForm($entrance->getId(), 'admin_entrance_delete');
 
         return array(
             'entrance' => $entrance,
-            'edit_form'   => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -240,10 +256,12 @@ class EntranceController extends Controller
      */
     public function updateAction(Entrance $entrance, Request $request)
     {
-        $editForm = $this->createForm(new EntranceType(), $entrance, array(
-            'action' => $this->generateUrl('admin_entrance_update', array('id' => $entrance->getid())),
-            'method' => 'PUT',
-        ));
+        $editForm = $this->createForm(
+            new EntranceType(), $entrance, array(
+                'action' => $this->generateUrl('admin_entrance_update', array('id' => $entrance->getid())),
+                'method' => 'PUT',
+            )
+        );
         if ($editForm->handleRequest($request)->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -253,7 +271,7 @@ class EntranceController extends Controller
 
         return array(
             'entrance' => $entrance,
-            'edit_form'   => $editForm->createView(),
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         );
     }
@@ -272,9 +290,9 @@ class EntranceController extends Controller
     }
 
     /**
-     * @param string $name  session name
+     * @param string $name session name
      * @param string $field field name
-     * @param string $type  sort type ("ASC"/"DESC")
+     * @param string $type sort type ("ASC"/"DESC")
      */
     protected function setOrder($name, $field, $type = 'ASC')
     {
@@ -294,7 +312,7 @@ class EntranceController extends Controller
 
     /**
      * @param QueryBuilder $qb
-     * @param string       $name
+     * @param string $name
      */
     protected function addQueryBuilderSort(QueryBuilder $qb, $name)
     {
@@ -308,9 +326,9 @@ class EntranceController extends Controller
      * Save filters
      *
      * @param  FormInterface $form
-     * @param  string        $name   route/entity name
-     * @param  string        $route  route name, if different from entity name
-     * @param  array         $params possible route parameters
+     * @param  string $name route/entity name
+     * @param  string $route route name, if different from entity name
+     * @param  array $params possible route parameters
      * @return Response
      */
     protected function saveFilter(FormInterface $form, $name, $route = null, array $params = null)
@@ -331,9 +349,9 @@ class EntranceController extends Controller
     /**
      * Filter form
      *
-     * @param  FormInterface                                       $form
-     * @param  QueryBuilder                                        $qb
-     * @param  string                                              $name
+     * @param  FormInterface $form
+     * @param  QueryBuilder $qb
+     * @param  string $name
      * @return \Knp\Component\Pager\Pagination\PaginationInterface
      */
     protected function filter(FormInterface $form, QueryBuilder $qb, $name)
@@ -346,6 +364,7 @@ class EntranceController extends Controller
 
         // possible sorting
         $this->addQueryBuilderSort($qb, $name);
+
         return $this->get('knp_paginator')->paginate($qb->getQuery(), $this->getRequest()->query->get('page', 1), 20);
     }
 
@@ -381,8 +400,8 @@ class EntranceController extends Controller
     /**
      * Create Delete form
      *
-     * @param integer                       $id
-     * @param string                        $route
+     * @param integer $id
+     * @param string $route
      * @return \Symfony\Component\Form\Form
      */
     protected function createDeleteForm($id, $route)
@@ -390,8 +409,7 @@ class EntranceController extends Controller
         return $this->createFormBuilder(null, array('attr' => array('id' => 'delete')))
             ->setAction($this->generateUrl($route, array('id' => $id)))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 }
